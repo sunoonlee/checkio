@@ -24,7 +24,8 @@ def checkio(matrix):
         row = i
         col = 0
         count = 1
-        for j in range(n-1-i):
+        for j in range(n-1):
+            if not (0 <= row < n-1 and 0 <= col < n-1): break
             if matrix[row][col] == matrix[row+1][col+1]:
                 count += 1
                 if count == 4: return True
