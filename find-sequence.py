@@ -4,79 +4,58 @@ def checkio(matrix):
     # horizontal
     for row in matrix:
         count = 1
-        for j in range(n-1):
-            if row[j+1] == row[j]:
+        for col in range(n-1):
+            if row[col+1] == row[col]:
                 count += 1
                 if count == 4: return True
             else: count = 1
 
     # vertical
-    for j in range(n):
+    for col in range(n):
         count = 1
-        for i in range(n-1):
-            if matrix[i+1][j] == matrix[i][j]:
+        for row in range(n-1):
+            if matrix[row+1][col] == matrix[row][col]:
                 count += 1
                 if count == 4: return True
             else: count = 1
 
     # diagnal NW-SE
     for i in range(n):
-        row = i
-        col = 0
         count = 1
-        for j in range(n-1):
-            if not (0 <= row < n-1 and 0 <= col < n-1): break
-            if matrix[row][col] == matrix[row+1][col+1]:
+        for j in range(n-i-1):
+            if matrix[i+j][j] == matrix[i+j+1][j+1]:
                 count += 1
                 if count == 4: return True
             else: count = 1
-            row += 1
-            col += 1
 
-    for i in range(1, n):
-        row = 0
-        col = i
+    for j in range(1, n):
         count = 1
-        for j in range(n-1):
-            if not (0 <= row < n-1 and 0 <= col < n-1): break
-            if matrix[row][col] == matrix[row+1][col+1]:
+        for i in range(n-j-1):
+            if matrix[i][i+j] == matrix[i+1][i+j+1]:
                 count += 1
                 if count == 4: return True
             else: count = 1
-            row += 1
-            col += 1
 
     # diagnal NE-SW
     for i in range(n):
-        row = i
-        col = 0
         count = 1
-        for j in range(n-1):
-            if not (1 <= row < n and 0 <= col < n-1): break
-            if matrix[row][col] == matrix[row-1][col+1]:
+        for j in range(i):
+            if matrix[i-j][j] == matrix[i-j-1][j+1]:
                 count += 1
                 if count == 4: return True
             else: count = 1
-            row -= 1
-            col += 1
 
-    for i in range(1, n):
-        row = n - 1
-        col = i
+    for j in range(1, n):
         count = 1
-        for j in range(n-1):
-            if not (1 <= row < n and 0 <= col < n-1): break
-            if matrix[row][col] == matrix[row-1][col+1]:
+        for i in range(n-1, j, -1):
+            if matrix[i][j+n-i-1] == matrix[i-1][j+n-i]:
                 count += 1
                 if count == 4: return True
             else: count = 1
-            row -= 1
-            col += 1
 
     return False
 
 if __name__ == '__main__':
-    #These "asserts" using only for self-checking and not necessary for auto-testing
     assert checkio([
         [1, 2, 1, 1],
         [1, 1, 4, 1],
